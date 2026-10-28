@@ -30,9 +30,9 @@ mvn clean javafx:run
 
 ## Capturas
 
-| Inicio | Usuario incorrecto | Letra conseguida |
-|---|---|---|
-| ![Inicio](capturas/inicio.png) | ![Error](capturas/error.png) | ![Letra](capturas/letra.png) |
+| Inicio                         | Usuario incorrecto | Letra conseguida |
+|--------------------------------|---|---|
+| ![inicio](capturas/inicio.png) | ![Error](capturas/error.png) | ![Letra](capturas/letra.png) |
 
 ## Estructura
 
