@@ -17,10 +17,11 @@ public class SalaController {
     private static final String LETRA = "E";
     private static final String USUARIO = "caronte";   // pista acordada con 1.º
     private static final String[] ERRORES = {
-            "Usuario muerto. Inténtalo otra vez.",
-            "Error 666: alma no encontrada.",
-            "Ese nombre ya está enterrado.",
-            "No eres tú... ¿verdad?"
+            "Credenciales rechazadas. El sistema solo reconoce a los muertos.",
+            "Este usuario fue dado de baja... hace 30 años.",
+            "Error 13: el registro está manchado de sangre.",
+            "Intento registrado. Ahora sabemos quién eres.",
+            "Usuario desconocido. Pero tú no eres desconocido para nosotros."
     };
 
     @FXML private TextField txtUsuario;
@@ -76,7 +77,7 @@ public class SalaController {
         btnEntrar.setTranslateY(azar.nextDouble() * 160 - 80);
         if (huidas % 4 == 0) {
             efecto("risa.wav");
-            lblMensaje.setText("El botón no obedece a desconocidos. ¿Quién eres?");
+            lblMensaje.setText("Nadie entra sin identificarse. Ni siquiera tú.");
         }
     }
 
@@ -85,7 +86,7 @@ public class SalaController {
         if (lblLetra.isVisible()) return;
         if (usuarioCorrecto()) {
             escrituraFantasma.stop();
-            lblMensaje.setText("Bienvenido de nuevo, " + USUARIO + ". Te estábamos esperando...");
+            lblMensaje.setText("Le estábamos esperando, " + USUARIO + ". Su camilla está lista...");
             mostrarLetra();
         } else {
             efecto("fallo.wav");
