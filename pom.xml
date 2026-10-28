@@ -66,7 +66,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                es.medac.grupo2.tunel/es.medac.grupo2.tunel.HelloApplication
+                                es.medac.grupo2.tunel/es.medac.grupo2.tunel.App
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

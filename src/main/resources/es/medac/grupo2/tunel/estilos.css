@@ -1,0 +1,41 @@
+.raiz {
+    -fx-background-color: #0a0a0a;
+}
+.titulo {
+    -fx-font-family: "Creepster";
+    -fx-font-size: 64px;
+    -fx-text-fill: #b30000;
+}
+.texto {
+    -fx-font-size: 20px;
+    -fx-text-fill: #cccccc;
+}
+.letra {
+    -fx-font-family: "Creepster";
+    -fx-font-size: 220px;
+    -fx-text-fill: #ff2a2a;
+}
+.ayuda {
+    -fx-font-size: 18px;
+    -fx-text-fill: #d9a400;
+}
+.text-field {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: #eeeeee;
+    -fx-font-size: 20px;
+}
+.button {
+    -fx-background-color: #222222;
+    -fx-text-fill: #888888;
+    -fx-font-size: 20px;
+}
+
+
+.password-field {
+    -fx-text-fill: #b30000;
+}
+.button.despierto {
+    -fx-background-color: #b30000;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, #ff0000, 25, 0.5, 0, 0);
+}

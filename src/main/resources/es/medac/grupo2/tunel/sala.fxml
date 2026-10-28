@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane fx:id="raiz" styleClass="raiz" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="es.medac.grupo2.tunel.SalaController">
+    <VBox alignment="CENTER" spacing="22" maxWidth="700">
+        <Label text="Morgue · Acceso restringido" styleClass="titulo"/>
+        <Label text="Identifíquese" styleClass="texto"/>
+        <TextField fx:id="txtUsuario" promptText="usuario" maxWidth="420"/>
+        <PasswordField fx:id="txtClave" editable="false" focusTraversable="false" maxWidth="420"/>
+        <Button fx:id="btnEntrar" text="ENTRAR" onAction="#entrar" onMouseEntered="#huir" prefWidth="200"/>
+        <Label fx:id="lblMensaje" styleClass="texto" wrapText="true"/>
+    </VBox>
+    <Label fx:id="lblLetra" styleClass="letra" visible="false"/>
+    <Label fx:id="lblAyuda" styleClass="ayuda" StackPane.alignment="BOTTOM_CENTER">
+        <StackPane.margin><Insets bottom="40"/></StackPane.margin>
+    </Label>
+</StackPane>
