@@ -2,7 +2,7 @@
 
 Aplicación JavaFX de la **Sala 3** del túnel del terror «El aula maldita» (Desarrollo de Interfaces, 2.º DAM, MEDAC).
 
-**Autor:** grupo2
+**Autores:** grupo2 (José Miguel Gutiérrez López, Pedro Eduardo De La Puente Rodríguez, Ignacio Sedano Fiñana, Jorge Moreno Rivero y Mauro Rodríguez Ponce).
 
 ## La sala
 
