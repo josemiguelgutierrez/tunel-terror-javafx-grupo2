@@ -76,3 +76,7 @@ Aunque la interfaz es «de pesadilla», el visitante entiende enseguida qué hac
 ### Seguridad
 
 La sala no tiene destellos ni efectos estroboscópicos (fotosensibilidad): las animaciones son un desplazamiento del botón, un temblor suave del campo y la aparición de la letra con escala y fundido. El volumen del ambiente está al 40 %.
+
+   ## Estado de la entrega
+
+   - Sala terminada y probada: botón que huye, contraseña fantasma, validación, letra con animación, ayuda a los 60 s y autorreinicio.
