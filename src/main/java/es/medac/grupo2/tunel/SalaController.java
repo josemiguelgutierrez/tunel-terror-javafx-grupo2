@@ -11,6 +11,7 @@ import javafx.scene.layout.*;
 import javafx.scene.media.*;
 import javafx.scene.shape.*;
 import javafx.util.Duration;
+import javafx.scene.image.Image;
 
 public class SalaController {
 
@@ -28,7 +29,11 @@ public class SalaController {
     @FXML private PasswordField txtClave;
     @FXML private Button btnEntrar;
     @FXML private Label lblMensaje, lblLetra, lblAyuda;
+    @FXML private StackPane raiz;
 
+    private ImageView susto;
+    private Animation animSusto;
+    private boolean comprobando;
     private Timeline escrituraFantasma;
     private int huidas;
     private final Random azar = new Random();
@@ -38,14 +43,14 @@ public class SalaController {
 
     @FXML
     private void initialize() {
-        // La contraseña se escribe sola... alguien mas esta usando el teclado
+
         escrituraFantasma = new Timeline(new KeyFrame(Duration.millis(450), e -> {
             txtClave.appendText("x");
             if (txtClave.getLength() > 12) txtClave.clear();
         }));
         escrituraFantasma.setCycleCount(Animation.INDEFINITE);
 
-        // Cuando el usuario es correcto, el boton deja de huir y se ilumina
+
         txtUsuario.textProperty().addListener((obs, antes, ahora) -> {
             if (usuarioCorrecto()) {
                 btnEntrar.setTranslateX(0);
@@ -55,13 +60,22 @@ public class SalaController {
                 btnEntrar.getStyleClass().removeAll("despierto");
             }
         });
-        txtUsuario.setOnAction(e -> entrar());   // Enter tambien intenta entrar
+        txtUsuario.setOnAction(e -> entrar());
         ambiente = new MediaPlayer(new Media(recurso("sonidos/ambiente.mp3")));
         ambiente.setCycleCount(MediaPlayer.INDEFINITE);
         ambiente.setVolume(0.4);
         ambiente.play();
         piedad.setOnFinished(e -> mostrarAyuda());
         autoReinicio.setOnFinished(e -> reiniciar());
+
+        susto = new ImageView(new Image(recurso("img/susto.jpg")));
+        susto.setPreserveRatio(false);
+        susto.fitWidthProperty().bind(raiz.widthProperty());
+        susto.fitHeightProperty().bind(raiz.heightProperty());
+        susto.setManaged(false);
+        susto.setMouseTransparent(true);
+        susto.setVisible(false);
+        raiz.getChildren().add(susto);   // la última de la lista = la capa de más arriba
         reiniciar();
     }
 
@@ -83,16 +97,53 @@ public class SalaController {
 
     @FXML
     private void entrar() {
-        if (lblLetra.isVisible()) return;
+        if (lblLetra.isVisible() || comprobando) return;
         if (usuarioCorrecto()) {
+            comprobando = true;
             escrituraFantasma.stop();
-            lblMensaje.setText("Le estábamos esperando, " + USUARIO + ". Su camilla está lista...");
-            mostrarLetra();
+            piedad.stop();
+            lblMensaje.setText("Comprobando credenciales...");
+            ambiente.setVolume(0);
+
+            PauseTransition espera = new PauseTransition(Duration.seconds(3));
+            espera.setOnFinished(e -> lanzarSusto());
+            animSusto = espera;
+            espera.play();
         } else {
             efecto("fallo.wav");
             lblMensaje.setText(ERRORES[azar.nextInt(ERRORES.length)]);
             temblar(txtUsuario);
         }
+    }
+
+    private void lanzarSusto() {
+        susto.setOpacity(0);
+        susto.setScaleX(0.6);
+        susto.setScaleY(0.6);
+        susto.setVisible(true);
+        efecto("grito.wav");
+
+        FadeTransition aparece = new FadeTransition(Duration.millis(200), susto);
+        aparece.setToValue(1);
+        ScaleTransition acerca = new ScaleTransition(Duration.millis(200), susto);
+        acerca.setToX(1.05);
+        acerca.setToY(1.05);
+
+        PauseTransition quieto = new PauseTransition(Duration.seconds(1.5));
+        FadeTransition seVa = new FadeTransition(Duration.millis(600), susto);
+        seVa.setToValue(0);
+
+        SequentialTransition secuencia = new SequentialTransition(
+                new ParallelTransition(aparece, acerca), quieto, seVa);
+        secuencia.setOnFinished(e -> {
+            susto.setVisible(false);
+            ambiente.setVolume(0.4);
+            lblMensaje.setText("Le estábamos esperando, " + USUARIO + ". Su camilla está lista...");
+            comprobando = false;
+            mostrarLetra();
+        });
+        animSusto = secuencia;
+        secuencia.play();
     }
 
     public void reiniciar() {
@@ -108,6 +159,10 @@ public class SalaController {
         escrituraFantasma.play();
         txtUsuario.requestFocus();
         piedad.playFromStart();
+        if (animSusto != null) animSusto.stop();
+        susto.setVisible(false);
+        comprobando = false;
+        ambiente.setVolume(0.4);
     }
 
     private void mostrarAyuda() {
