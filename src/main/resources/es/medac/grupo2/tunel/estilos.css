@@ -1,5 +1,8 @@
 .raiz {
     -fx-background-color: #0a0a0a;
+    -fx-background-image: url("imagenFondo/fondo.png");
+    -fx-background-size: cover;
+    -fx-background-position: center;
 }
 .titulo {
     -fx-font-family: "Creepster";
